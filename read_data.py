@@ -7,7 +7,7 @@ def read_json(filename):
     Converts the json file into a list.
 
     Parameter:
-    path: filename of the json file to read
+    filename: filename of the json file to read
 
     Return:
     data: list of reviews
