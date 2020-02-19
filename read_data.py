@@ -1,6 +1,8 @@
 import json
 import sys
 import os
+import pickle
+import collections
 
 def read_json(filename):
     '''
@@ -16,6 +18,32 @@ def read_json(filename):
     data = [json.loads(review) for review in open(os.path.join(sys.path[0], filename), 'r')]
     return data
 
+def separate_data(data):
+    '''
+    Separate json by asin(product id). Store locally with pickle
+    into product_reviews.p
+    
+    Parameter:
+    data: json of reviews
+    
+    Return:
+    None
+    '''
+    product_dict = collections.defaultdict(list)
+    for review in data:
+        product_dict[review['asin']].append(review)
+    pickle.dump(product_dict, open( "product_reviews.p", "wb" ))
+            
+def load_data():
+    '''
+    Load pickle file
 
+    Return: dict of lists of reviews. {asin:[[],[],]}
+    '''
+    return pickle.load(open( "product_reviews.p", "rb" ))
+    
 #d = read_json('reviews_Musical_Instruments_5.json')
-#print(d[1])
+#separate_data(d)
+product_dict = load_data()
+for k, v in product_dict.items():
+    print(k,v)
