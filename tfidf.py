@@ -19,13 +19,12 @@ def calculate_tfidf(data):
     tfidf: {reviewerID:{term:tfidf value}, ...} dict of dicts, showing tfidf for each term for each review
     '''
     total_reviews = len(data)
-    tfs,idfs, tfidfs = dict(), dict(), dict()
+    tfs,idfs, tfidfs = {},{},{}
     term_documents = collections.defaultdict(int)
     for review in data:
         reviewerID = review['reviewerID']
         tfs[reviewerID] = dict()
-        s = review['reviewText'].lower()
-        tokens = word_tokenize(s)
+        tokens = word_tokenize(review['reviewText'].lower())
         total_tokens = len(tokens)
         term_dict = collections.defaultdict(int)
         token_set = set()
@@ -45,17 +44,17 @@ def calculate_tfidf(data):
         idfs[token] = math.log(total_reviews/num_reviews)
 
     for reviewerID, token_dict in tfs.items():
-        tfidfs[reviewerID] = dict()
+        tfidfs[reviewerID] = {}
         for token, tf in token_dict.items():
             tfidfs[reviewerID][token] = tf * idfs[token]
             
     return tfidfs
         
-product_dict = read_data.load_data()
-for k,v in product_dict.items():
-    tfidfs = calculate_tfidf(v)
-    for reviewerID, tfidf in tfidfs.items():
-        sorted_tfidf = sorted(tfidf.items(), key=lambda x: -x[1])
-        for x in sorted_tfidf:
-            print(x)
-    break
+#product_dict = read_data.load_data()
+#for k,v in product_dict.items():
+#    tfidfs = calculate_tfidf(v)
+#    for reviewerID, tfidf in tfidfs.items():
+#        sorted_tfidf = sorted(tfidf.items(), key=lambda x: -x[1])
+#        for x in sorted_tfidf:
+#            print(x)
+#    break
