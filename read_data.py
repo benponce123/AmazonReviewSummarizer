@@ -32,6 +32,7 @@ def separate_data(data):
     product_dict = collections.defaultdict(list)
     for review in data:
         product_dict[review['asin']].append(review)
+    product_dict = dict(product_dict)
     pickle.dump(product_dict, open( "product_reviews.p", "wb" ))
             
 def load_data():
@@ -42,8 +43,8 @@ def load_data():
     '''
     return pickle.load(open( "product_reviews.p", "rb" ))
     
-#d = read_json('reviews_Musical_Instruments_5.json')
-#separate_data(d)
-product_dict = load_data()
-for k, v in product_dict.items():
-    print(k,v)
+d = read_json('reviews_Musical_Instruments_5.json')
+separate_data(d)
+#product_dict = load_data()
+#for k, v in product_dict.items():
+#    print(k,v)
