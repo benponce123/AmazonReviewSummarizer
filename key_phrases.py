@@ -13,12 +13,11 @@ def find_keyphrases(filename, product):
     product: string of the product ID (asin)
 
     Return:
-    product_keyphrases: nested list of string key phrases of each review per product,
+    product_keyphrases: list of string key phrases of each review in the product,
                         key phrases start with an adjective or noun and includes
                         the following words and stops with an adjective or noun.
-    
     '''
-    product_keyphrases = list() 
+    product_tokpos = list() 
     
     data = read_json(filename)
     for d in data:
@@ -27,9 +26,9 @@ def find_keyphrases(filename, product):
             tokens = word_tokenize(s)  # grab the words
             tokens_and_tags = nltk.pos_tag(tokens, tagset='universal')
 
-            print()
-            print()
-            print(tokens_and_tags)
+            #print()
+            #print()
+            #print(tokens_and_tags)
             
 
             i = 0
@@ -47,29 +46,37 @@ def find_keyphrases(filename, product):
                     else:
                         review_keyphrases.append(tokens_and_tags[i])
                     i += 1
+                if i < len(tokens_and_tags):
+                    if tokens_and_tags[i][1] == '.':
+                        if review_keyphrases[-1][1] != '.':
+                            review_keyphrases.append(tokens_and_tags[i])
+                    
+                    if (tokens_and_tags[i][1] == 'NOUN' or tokens_and_tags[i][1] == 'ADJ'):
+                        if not review_keyphrases:
+                            review_keyphrases.append(tokens_and_tags[i])
+                        elif review_keyphrases and (review_keyphrases[-1][1] != 'NOUN' or review_keyphrases[-1][1] != 'ADJ'):
+                            review_keyphrases.append(tokens_and_tags[i])
+                        found_adjnoun = True
+                    i += 1
 
-                if tokens_and_tags[i][1] == '.':
-                    if review_keyphrases[-1][1] != '.':
-                        review_keyphrases.append(tokens_and_tags[i])
-                
-                if (tokens_and_tags[i][1] == 'NOUN' or tokens_and_tags[i][1] == 'ADJ'):
-                    if not review_keyphrases:
-                        review_keyphrases.append(tokens_and_tags[i])
-                    elif review_keyphrases and (review_keyphrases[-1][1] != 'NOUN' or review_keyphrases[-1][1] != 'ADJ'):
-                        review_keyphrases.append(tokens_and_tags[i])
-                    found_adjnoun = True
-                i += 1
-
-            print()
-            print(review_keyphrases)
+            #print()
+            #print(review_keyphrases)
             
-            product_keyphrases.append(review_keyphrases)
+            product_tokpos.append(review_keyphrases)
+
+    product_keyphrases = list()
+    for pt in product_tokpos:
+        keyphrases = ''
+        for token,pos in pt:
+            keyphrases += token + ' '
+        product_keyphrases.append(keyphrases)
+    
     return product_keyphrases
 
 find = find_keyphrases('reviews_Musical_Instruments_5.json','1384719342')
-#for f in find:
-    #print(f)
-    #print()
+for f in find:
+    print(f)
+    print()
 
 
 
