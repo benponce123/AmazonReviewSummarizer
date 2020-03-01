@@ -12,9 +12,10 @@ from read_data import load_data
 
 
 product_dict = load_data()
-for productID,v in product_dict.items():
+product_list = sorted(product_dict.keys(), reverse = True) # sort descending order by num reviews
+for productID in product_list:
         print('productID: ' + productID + '\n')
-        tfidfs = calculate_tfidf(v)
+        tfidfs = calculate_tfidf(product_dict[productID])
         for reviewerID, tfidf in tfidfs.items():
                 print('reviewerID: ' + reviewerID)
                 threshold = sum(tfidf.values())/len(tfidf)
