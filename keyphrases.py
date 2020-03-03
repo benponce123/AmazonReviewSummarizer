@@ -3,7 +3,7 @@ import nltk
 from nltk import word_tokenize, pos_tag
 
 
-def find_keyphrases(filename, product):
+def find_keyphrases(filename, asin):
     '''
     Finds the key phrases of each review,
     which will be used later for sentence scoring
@@ -13,7 +13,7 @@ def find_keyphrases(filename, product):
     product: string of the product ID (asin)
 
     Return:
-    product_keyphrases: list of string key phrases of each review in the product,
+    product_keyphrases: nested list of split string key phrases of each review in the product,
                         key phrases start with an adjective or noun and includes
                         the following words and stops with an adjective or noun.
     '''
@@ -21,7 +21,7 @@ def find_keyphrases(filename, product):
     
     data = read_json(filename)
     for d in data:
-        if d['asin'] == product:  # find the product
+        if d['asin'] == asin:  # find the product
             s = d['reviewText'].lower()  # grab the review text
             tokens = word_tokenize(s)  # grab the words
             tokens_and_tags = nltk.pos_tag(tokens, tagset='universal')
@@ -66,17 +66,22 @@ def find_keyphrases(filename, product):
 
     product_keyphrases = list()
     for pt in product_tokpos:
-        keyphrases = ''
+        keyphrases = list()
+        phrases = ''
         for token,pos in pt:
-            keyphrases += token + ' '
+            if pos == '.':
+                keyphrases.append(phrases.split())
+                phrases = ''
+            else:
+                phrases += token + ' '
         product_keyphrases.append(keyphrases)
     
     return product_keyphrases
 
-find = find_keyphrases('reviews_Musical_Instruments_5.json','1384719342')
-for f in find:
-    print(f)
-    print()
+#find = find_keyphrases('reviews_Musical_Instruments_5.json','1384719342')
+#for f in find:
+    #print(f)
+    #print()
 
 
 
