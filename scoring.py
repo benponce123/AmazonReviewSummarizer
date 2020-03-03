@@ -32,6 +32,7 @@ stopwords_list = ['a','about','above','against','am','an','and',
                   'yourselves',"'s",'.',',','!','?','(',')','[',']','{','}',"/",
                   '|','@','#','$','%','^','&','*','+','-','=','~']
 
+
 def score_phrases(filename, asin):
     '''
 
@@ -44,16 +45,26 @@ def score_phrases(filename, asin):
     tfidfs = calculate_tfidf(product_dict[asin])
     scores = dict()
 
-    print(tfidfs)
-
     for review, reviewerID in enumerate(tfidfs):
-        #print(review, reviewerID)
-        #print(product_keyphrases[review])
-        #print(tfidfs[reviewerID])
-        #print()
-
+        print(review, reviewerID)
+        print(product_keyphrases[review])
+        print(tfidfs[reviewerID])
+        print()
         for phrase in product_keyphrases[review]:
-            print(phrase)
+            phrase_score = 0
+            for word in phrase:
+                if word not in stopwords_list:
+                    phrase_score += tfidfs[reviewerID][word]
+            phrase_score = phrase_score/len(phrase) ### remove stop words in phrase!!
+            scores[' '.join(phrase)] = phrase_score
+            print(phrase_score)
+            print(len(phrase))
+            print()
+
+    sorted_scores = sorted(scores.items(), key=lambda x: -x[1])
+    print(sorted_scores)
+                
+            
     
 
 
