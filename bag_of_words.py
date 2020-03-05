@@ -2,7 +2,7 @@ import json
 import sys
 import os
 import nltk
-import read_data
+from read_data import read_json
 
 def product_BOW(filename):
 	'''
@@ -25,4 +25,7 @@ def product_BOW(filename):
 				word_bag[review['asin']][word] += 1
 			else:
 				word_bag[review['asin']][word] = 1
+
 	return word_bag
+
+word_bag = product_BOW("reviews_Musical_Instruments_5.json")
