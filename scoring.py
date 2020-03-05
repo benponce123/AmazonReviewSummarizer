@@ -1,8 +1,14 @@
-import collections
-import math
-import nltk
-from nltk import word_tokenize
+### Key Phrase Scoring
 
+import nltk
+from read_data import *
+from tfidf import calculate_tfidf
+from keyphrases import find_keyphrases
+
+
+# source: https://www.ranks.nl/stopwords
+# words removed from original list: after,again,all,before,few,more,most,
+#    only,same,than,until,very
 stopwords_list = ['a','about','above','against','am','an','and',
                   'any','are',"aren't",'as','at','be','because','been','being',
                   'below','between','both','but','by',"can't",'cannot','could',
@@ -26,46 +32,44 @@ stopwords_list = ['a','about','above','against','am','an','and',
                   'yourselves',"'s",'.',',','!','?','(',')','[',']','{','}',"/",
                   '|','@','#','$','%','^','&','*','+','-','=','~']
 
-def calculate_tfidf(data):
+
+def score_phrases(filename, asin):
     '''
-    Calculates importance of a term given a review, among other reviews
 
-
-    Parameter:
-    data: list of reviews for a single asin [{reviewerID: str, ...},{}]
-
-    Return:
-    tfidf: {reviewerID:{term:tfidf value}, ...} dict of dicts, showing tfidf for each term for each review
     '''
-    total_reviews = len(data)
-    tfs,idfs, tfidfs = {},{},{}
-    term_documents = collections.defaultdict(int)
-    for review in data:
-        reviewerID = review['reviewerID']
-        tfs[reviewerID] = dict()
-        tokens = word_tokenize(review['reviewText'].lower())
-        tokens = [t for t in tokens if not t in stopwords_list]
-        total_tokens = len(tokens)
-        term_dict = collections.defaultdict(int)
-        token_set = set()
-        for token in tokens:
-            term_dict[token] += 1
-            token_set.add(token)
-            
-        term_dict = dict(term_dict)
-        for token, num_tokens in term_dict.items():
-            tfs[reviewerID][token] = num_tokens/total_tokens
+    #data = read_json(filename)
+    #separate_data(data)
 
-        for token in token_set:
-            term_documents[token] += 1
-            
-    term_documents = dict(term_documents)
-    for token, num_reviews in term_documents.items():
-        idfs[token] = math.log(total_reviews/num_reviews)
+    product_dict = load_data()
+    product_keyphrases = find_keyphrases(filename, asin)
+    tfidfs = calculate_tfidf(product_dict[asin])
+    scores = dict()
 
-    for reviewerID, token_dict in tfs.items():
-        tfidfs[reviewerID] = {}
-        for token, tf in token_dict.items():
-            tfidfs[reviewerID][token] = tf * idfs[token]
+    for review, reviewerID in enumerate(tfidfs):
+        print(review, reviewerID)
+        print(product_keyphrases[review])
+        print(tfidfs[reviewerID])
+        print()
+        for phrase in product_keyphrases[review]:
+            phrase_score = 0
+            for word in phrase:
+                if word not in stopwords_list:
+                    phrase_score += tfidfs[reviewerID][word]
+            phrase_score = phrase_score/len(phrase) ### remove stop words in phrase!!
+            scores[' '.join(phrase)] = phrase_score
+            print(phrase_score)
+            print(len(phrase))
+            print()
+
+    sorted_scores = sorted(scores.items(), key=lambda x: -x[1])
+    print(sorted_scores)
+                
             
-    return tfidfs
+    
+
+
+score_phrases('reviews_Musical_Instruments_5.json', '1384719342')
+
+
+
+

@@ -43,8 +43,8 @@ def load_data():
     '''
     return pickle.load(open( "product_reviews.p", "rb" ))
     
-d = read_json('reviews_Musical_Instruments_5.json')
-separate_data(d)
+#d = read_json('reviews_Musical_Instruments_5.json')
+#separate_data(d)
 #product_dict = load_data()
 #for k, v in product_dict.items():
 #    print(k,v)
