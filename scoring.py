@@ -56,7 +56,7 @@ def score_phrases(filename, asin):
         # Get the the title/summary of the Amazon review
         title = word_tokenize(product_dict[asin][review]['summary'].lower())
         title = [t for t in title if t not in stopwords_list]
-        #print(title)
+        #print(title) 
 
         for phrase in product_keyphrases[review]:
             phrase_score = 0
@@ -108,7 +108,7 @@ for r in product_dict['B000068NSX']:
     print()
     print()
 score_phrases('reviews_Musical_Instruments_5.json', 'B000068NSX')
-
+# test
 
 
 
