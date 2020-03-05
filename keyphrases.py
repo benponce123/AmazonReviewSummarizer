@@ -23,7 +23,18 @@ def find_keyphrases(filename, asin):
     for d in data:
         if d['asin'] == asin:  # find the product
             s = d['reviewText'].lower()  # grab the review text
-            tokens = word_tokenize(s)  # grab the words
+
+            # Add space after '.' since some reviewers forget to,
+            # e.g.: This is affordable.I like it
+            ps = '' 
+            for i in range(len(s)-1):
+                if s[i] == '.' and s[i+1] != ' ':
+                    ps += s[i] + ' '
+                else:
+                    ps += s[i]
+            ps += s[-1]
+
+            tokens = word_tokenize(ps)  # grab the words
             tokens_and_tags = nltk.pos_tag(tokens, tagset='universal')
 
             #print()
@@ -36,7 +47,7 @@ def find_keyphrases(filename, asin):
             review_keyphrases = list()  # list of key words/phrases in one review
             while (i < len(tokens_and_tags)):
 
-                while found_adjnoun:
+                while found_adjnoun and i < len(tokens_and_tags):
                     if tokens_and_tags[i][1] == '.':
                         review_keyphrases.append(tokens_and_tags[i])
                         found_adjnoun = False
@@ -47,7 +58,7 @@ def find_keyphrases(filename, asin):
                         review_keyphrases.append(tokens_and_tags[i])
                     i += 1
                 if i < len(tokens_and_tags):
-                    if tokens_and_tags[i][1] == '.':
+                    if tokens_and_tags[i][1] == '.' and len(review_keyphrases) > 0:
                         if review_keyphrases[-1][1] != '.':
                             review_keyphrases.append(tokens_and_tags[i])
                     

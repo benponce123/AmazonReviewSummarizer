@@ -23,7 +23,7 @@ stopwords_list = ['a','about','above','against','am','an','and',
                   "when's",'where',"where's",'which','while','who',"who's",'whom',
                   'why',"why's",'with',"won't",'would',"wouldn't",'you',"you'd",
                   "you'll","you're","you've",'your','yours','yourself',
-                  'yourselves',"'s",'.',',','!','?','(',')','[',']','{','}',"/",
+                  'yourselves',"n't","'s",'.',',','!','?','(',')','[',']','{','}',"/",
                   '|','@','#','$','%','^','&','*','+','-','=','~']
 
 def calculate_tfidf(data):
@@ -43,7 +43,19 @@ def calculate_tfidf(data):
     for review in data:
         reviewerID = review['reviewerID']
         tfs[reviewerID] = dict()
-        tokens = word_tokenize(review['reviewText'].lower())
+        s = review['reviewText'].lower()
+
+        # Add space after '.' since some reviewers forget to,
+        # e.g.: This is affordable.I like it
+        ps = '' 
+        for i in range(len(s)-1):
+            if s[i] == '.' and s[i+1] != ' ':
+                ps += s[i] + ' '
+            else:
+                ps += s[i]
+        ps += s[-1]
+
+        tokens = word_tokenize(ps)
         tokens = [t for t in tokens if not t in stopwords_list]
         total_tokens = len(tokens)
         term_dict = collections.defaultdict(int)
