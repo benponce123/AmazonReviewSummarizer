@@ -1,5 +1,6 @@
-### Key Phrase Scoring
+### Summary Formation
 
+from math import ceil
 import nltk
 from nltk import word_tokenize
 from read_data import *
@@ -8,8 +9,10 @@ from keyphrases import find_keyphrases
 
 
 # source: https://www.ranks.nl/stopwords
-# words removed from original list: after,again,all,before,few,more,most,
+# Words removed from original list: after,again,all,before,few,more,most,
 #    only,same,than,until,very
+# The above words may be relevant in a review as reviewers usually compare
+#    products and indicate quantity
 stopwords_list = ['a','about','above','against','am','an','and',
                   'any','are',"aren't",'as','at','be','because','been','being',
                   'below','between','both','but','by',"can't",'cannot','could',
@@ -36,79 +39,98 @@ stopwords_list = ['a','about','above','against','am','an','and',
 
 def score_phrases(filename, asin):
     '''
+    Sums up the weights of each word using TF-IDF/Logistic Classifier/review title,
+    to calculate the score of each phrases
+
+    Parameters:
+    filename:
+    filename: filename of the json file containing products and reviews
+    product: string of the product ID (asin)
+
+    Return:
+    scores: dictionary of phrases as keys and list of scores as values
+        {phrase:[TF-IDF score, LC score, both score],...}
 
     '''
-    # Uncomment below if testing for a new json file
-    #data = read_json(filename)
-    #separate_data(data)   # creates pickles file
 
-    product_dict = load_data()   # {asin: [{reviewerID:..., asin:...},{...},{...}]}
+    product_dict = load_data()   # {asin: [{reviewerID:str, asin:...},{...},{...}]}
     product_keyphrases = find_keyphrases(filename, asin)   
     tfidfs = calculate_tfidf(product_dict[asin])
     scores = dict()   # store the phrase scores into a dictionary to sort later
 
     for review, reviewerID in enumerate(tfidfs):
-        #print(review, reviewerID)
-        #print(product_keyphrases[review])
-        #print(tfidfs[reviewerID])
-        #print()
-
         # Get the the title/summary of the Amazon review
         title = word_tokenize(product_dict[asin][review]['summary'].lower())
-        title = [t for t in title if t not in stopwords_list]
-        #print(title) 
+        title = [t for t in title if t not in stopwords_list]  # title without stopwords
 
         for phrase in product_keyphrases[review]:
-            phrase_score = 0
+            # Three scores for TF-IDF, LC, and for both
+            # All three will be added with title similarity score
+            phrase_score = [0,0,0]
             nonstopword_phrase = [word for word in phrase if word not in stopwords_list]         
 
             if len(nonstopword_phrase) > 1:
                 for word in phrase:
                     if word not in stopwords_list:
-                        phrase_score += tfidfs[reviewerID][word]   # Add weights
+                        # Add TF-IDF weights
+                        phrase_score[0] += tfidfs[reviewerID][word]
+                        # Add LC weights
+                        # phrase_score[1] += lc[reviewerID][word]
+                        # Add both TF-IDF and LC
+                        # phrase_score[2] += phrase_score[0] + phrase_score[1]
 
                 # Divide by length of phrase since longer phrases will have higher scores
-                phrase_score = phrase_score/len(phrase) #len(nonstopword_phrase)
-
+                phrase_score[0] = phrase_score[0]/len(phrase) #len(nonstopword_phrase) ?
+                phrase_score[1] = phrase_score[1]/len(phrase)
+                phrase_score[2] = phrase_score[2]/len(phrase)
+                
+                # Title similarity scoring
                 # Title words in the phrase receive higher score
-                title_length = len(title)   # how many words in the title without stopwords
+                title_length = len(title)
                 ntw = 0    # number of title words in the phrase
                 if len(title) > 0:   # avoid division by 0
                     for word in phrase:
                         if word in title:
                             ntw += 1
-                    #print('ntw',ntw)
-                    phrase_score += ntw/title_length
+                    phrase_score[0] += ntw/title_length
+                    phrase_score[1] += ntw/title_length
+                    phrase_score[2] += ntw/title_length
 
                 # Add phrase and score in dictionary
                 scores[' '.join(phrase)] = phrase_score
+                
+    return scores
 
-                #print(phrase_score)
-                #print(len(phrase))
-                #print()
 
-    # Sort the dictionary in descending scores
-    sorted_scores = sorted(scores.items(), key=lambda x: -x[1])
-    for k,v in sorted_scores:
-        print(k, ':', v)
+def print_summaries(filename, asin, method):
+    '''
+    Sorts the dictionary of scores and forms sentences to create a summary
 
-    print(len(sorted_scores))
+    Parameters:
+    filename:
+    filename: filename of the json file containing products and reviews
+    product: string of the product ID (asin)
+    method: int indicating scoring method used;
+        0 for TF-IDF, 1 for Logistic Classifier, 2 for both
 
-    return sorted_scores
+    Return:
+    summary: string of formed summary depending on the scoring method used
+    '''
+
+    scores = score_phrases(filename,asin)
+
+    # Sorted scores by TF-IDF
+    sorted_scores = sorted(scores.items(), key=lambda x:-x[1][method])
+    summary = ''
+    # Length of summary dependent on # of review sentences
+    for i in range(ceil(len(sorted_scores)/5)):
+        # Capitalize first letter and end with period
+        summary += sorted_scores[i][0][0].upper() + sorted_scores[i][0][1:] + '. '
+
+    return summary
+    
                 
             
-    
-product_dict = load_data()
-print()
-print('------------------------------')
-print()
-for r in product_dict['B000068NSX']:
-    print(r['reviewerID'], ':', r['summary'])
-    print(r['reviewText'])
-    print()
-    print()
-score_phrases('reviews_Musical_Instruments_5.json', 'B000068NSX')
-# test
 
 
 
