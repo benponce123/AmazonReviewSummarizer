@@ -1,24 +1,31 @@
+### Amazon Review Summarizer
+### Keyphrases
+
+# This file contains find_keyphrases to find important phrases in the text review
+# that will be useful in summarizing all the reviews. The phrases will later be
+# used for scoring.
+
+
 from read_data import read_json
 import nltk
 from nltk import word_tokenize, pos_tag
 
-
 def find_keyphrases(filename, asin):
     '''
-    Finds the key phrases of each review,
-    which will be used later for sentence scoring
+    Finds the keyphrases of each review of a specific product
+    Keyphrases start with an adjective or noun and includes the following
+    words and stops with an adjective or noun
 
-    Parameter:
-    filename: filename of the json file containing products and reviews
-    product: string of the product ID (asin)
+    Parameters:
+    filename: filename of the json file to read
+    asin: string of the product ID (asin)
 
     Return:
-    product_keyphrases: nested list of split string key phrases of each review in the product,
-                        key phrases start with an adjective or noun and includes
-                        the following words and stops with an adjective or noun.
+    product_keyphrases: nested list of split string keyphrases of each review
+    in the product [[[term,...][term,...]],[[...]]]
     '''
+
     product_tokpos = list() 
-    
     data = read_json(filename)
     for d in data:
         if d['asin'] == asin:  # find the product
@@ -40,8 +47,8 @@ def find_keyphrases(filename, asin):
             #print()
             #print()
             #print(tokens_and_tags)
-            
 
+            # Find noun-adjective phrases
             i = 0
             found_adjnoun = False
             review_keyphrases = list()  # list of key words/phrases in one review
@@ -75,6 +82,7 @@ def find_keyphrases(filename, asin):
             
             product_tokpos.append(review_keyphrases)
 
+    # Separate by sentence
     product_keyphrases = list()
     for pt in product_tokpos:
         keyphrases = list()
@@ -88,12 +96,5 @@ def find_keyphrases(filename, asin):
         product_keyphrases.append(keyphrases)
     
     return product_keyphrases
-
-#find = find_keyphrases('reviews_Musical_Instruments_5.json','1384719342')
-#for f in find:
-    #print(f)
-    #print()
-
-
 
 

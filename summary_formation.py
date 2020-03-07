@@ -1,4 +1,11 @@
+### Amazon Review Summarizer
 ### Summary Formation
+
+# This file contains a stopwords_list to take out unnecessary words and characters
+# so they don't add to the overall score of a phrase. This also contains
+# score_phrases that add the weights of each term in the phrase resulting in an
+# overall score, and print_summary that prints out the formed summary. 
+
 
 from math import ceil
 import nltk
@@ -7,12 +14,11 @@ from read_data import *
 from tfidf import calculate_tfidf
 from keyphrases import find_keyphrases
 
-
-# source: https://www.ranks.nl/stopwords
+# Customized stopwords list from source: https://www.ranks.nl/stopwords
 # Words removed from original list: after,again,all,before,few,more,most,
-#    only,same,than,until,very
+# only,same,than,until,very
 # The above words may be relevant in a review as reviewers usually compare
-#    products and indicate quantity
+# products and indicate quantity
 stopwords_list = ['a','about','above','against','am','an','and',
                   'any','are',"aren't",'as','at','be','because','been','being',
                   'below','between','both','but','by',"can't",'cannot','could',
@@ -33,7 +39,7 @@ stopwords_list = ['a','about','above','against','am','an','and',
                   "when's",'where',"where's",'which','while','who',"who's",'whom',
                   'why',"why's",'with',"won't",'would',"wouldn't",'you',"you'd",
                   "you'll","you're","you've",'your','yours','yourself',
-                  'yourselves',"n't","'s",'.',',','!','?','(',')','[',']','{','}',"/",
+                  'yourselves',"n't","'s","'t",'.',',','!','?','(',')','[',']','{','}',"/",
                   '|','@','#','$','%','^','&','*','+','-','=','~']
 
 
@@ -43,17 +49,15 @@ def score_phrases(filename, asin):
     to calculate the score of each phrases
 
     Parameters:
-    filename:
-    filename: filename of the json file containing products and reviews
-    product: string of the product ID (asin)
+    filename: filename of the json file to read
+    asin: string of the product ID (asin)
 
     Return:
     scores: dictionary of phrases as keys and list of scores as values
-        {phrase:[TF-IDF score, LC score, both score],...}
-
+    {phrase:[TF-IDF score, LC score, both score],...}
     '''
 
-    product_dict = load_data()   # {asin: [{reviewerID:str, asin:...},{...},{...}]}
+    product_dict = load_data()   # {asin:[{reviewerID:str, asin:...},{...},{...}]}
     product_keyphrases = find_keyphrases(filename, asin)   
     tfidfs = calculate_tfidf(product_dict[asin])
     scores = dict()   # store the phrase scores into a dictionary to sort later
@@ -102,14 +106,13 @@ def score_phrases(filename, asin):
     return scores
 
 
-def print_summaries(filename, asin, method):
+def print_summary(filename, asin, method):
     '''
     Sorts the dictionary of scores and forms sentences to create a summary
 
     Parameters:
-    filename:
-    filename: filename of the json file containing products and reviews
-    product: string of the product ID (asin)
+    filename: filename of the json file to read
+    asin: string of the product ID (asin)
     method: int indicating scoring method used;
         0 for TF-IDF, 1 for Logistic Classifier, 2 for both
 

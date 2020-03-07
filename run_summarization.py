@@ -1,12 +1,10 @@
+### Amazon Review Summarizer
 ### Run Summarization
 
 # The purpose of this file is to show the results of our computer-generated
-#    summaries. You should be able to see the product ID, reviewer ID,
-#    product rating, title of the review, and the text review
+# summaries. You should be able to see the product ID, reviewer ID, product
+# rating, title of the review, and the text review
 
-
-# Format:
-#
 # Product: 'productID'
 # ----------------------
 # Reviewer: 'reviewerID'
@@ -14,9 +12,9 @@
 # Title: 'summary'
 # 'reviewText'
 
+
 from read_data import *
 from summary_formation import *
-
 
 if __name__ == '__main__':
 
@@ -29,9 +27,9 @@ if __name__ == '__main__':
     #separate_data(data)         # creates pickle file
   
     product_dict = load_data()
-    summary1 = print_summaries(filename,asin,0) # summary based on tfidf
-    summary2 = print_summaries(filename,asin,1) # summary based on logclassifier
-    summary3 = print_summaries(filename,asin,2) # summary based on both methods
+    summary1 = print_summary(filename,asin,0) # summary based on tfidf
+    summary2 = print_summary(filename,asin,1) # summary based on logclassifier
+    summary3 = print_summary(filename,asin,2) # summary based on both methods
 
     print('\n\nProduct: ' + asin)
     print('------------------------------\n')

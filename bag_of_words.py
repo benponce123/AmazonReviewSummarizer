@@ -1,3 +1,11 @@
+### Amazon Review Summarizer
+### Bag of Words
+
+# This file contains product_BOW to create a bag of words for each product
+# This function was not specifically used in the tfidf.py and
+# logistic_classifier.py files, but it was used for analyzing the data.
+
+
 import json
 import sys
 import os
@@ -6,15 +14,20 @@ from read_data import read_json
 
 def product_BOW(filename):
 	'''
-	Takes in 1 product and returns a bag of words with frequencies.
+	Creates a bag of words
+	Stores each token and its frequency per product
 
 	Parameter:
 	filename: filename of the json file to read
 
 	Return:
-	data: Dictionary of unique products and their reviews with dict of term, freq.
+	word_bag: dictionary with asin as key and dictionary as value with
+	term as key and count as value
+	{asin:{term:count,...},...}
 	'''
+	
 	data = read_json(filename)
+
 	#for each review, add word, +1 freq to that unique product
 	word_bag = dict()
 	for review in data:
@@ -28,4 +41,4 @@ def product_BOW(filename):
 
 	return word_bag
 
-word_bag = product_BOW("reviews_Musical_Instruments_5.json")
+
