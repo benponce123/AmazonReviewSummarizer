@@ -1,3 +1,11 @@
+### Amazon Review Summarizer
+### Read Data
+
+# This file contains helper functions read_json, separate_data, and load_data
+# that will open and read a json file and turn it into a pickle file for easy
+# loading and manipulation.
+
+
 import json
 import sys
 import os
@@ -6,29 +14,30 @@ import collections
 
 def read_json(filename):
     '''
-    Converts the json file into a list.
+    Opens and reads a json file turning it into a list
 
     Parameter:
     filename: filename of the json file to read
 
     Return:
-    data: list of reviews
+    data: list of review data [{reviewerID:str,asin:str,...},{...},...]
     '''
-
+    
     data = [json.loads(review) for review in open(os.path.join(sys.path[0], filename), 'r')]
     return data
 
 def separate_data(data):
     '''
-    Separate json by asin(product id). Store locally with pickle
-    into product_reviews.p
+    Separates the review data by asin(product id)
+    Stores the review data locally with pickle into product_reviews.p
     
     Parameter:
-    data: json of reviews
+    data: list of review data from read_json
     
     Return:
-    None
+    None; creates a pickle file
     '''
+    
     product_dict = collections.defaultdict(list)
     for review in data:
         product_dict[review['asin']].append(review)
@@ -37,14 +46,13 @@ def separate_data(data):
             
 def load_data():
     '''
-    Load pickle file
+    Loads the pickle file from separate_data
 
-    Return: dict of lists of reviews. {asin:[[],[],]}
+    Return:
+    Dictionary of lists of review data
+    {asin:[{reviewerID:str,asin:str,...},{...}],...}
     '''
-    return pickle.load(open( "product_reviews.p", "rb" ))
     
-#d = read_json('reviews_Musical_Instruments_5.json')
-#separate_data(d)
-#product_dict = load_data()
-#for k, v in product_dict.items():
-#    print(k,v)
+    return pickle.load(open( "product_reviews.p", "rb" ))
+
+

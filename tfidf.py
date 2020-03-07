@@ -1,3 +1,13 @@
+### Amazon Review Summarizer
+### TF-IDF
+
+# This file contains a stopwords_list to take out unnecessary words and characters
+# so they don't affect the scoring of important words. This also contains
+# calculate_tfidf that creates a bag of words and then calculates the
+# term frequency x inverse document frequency of each token per review of a
+# specific product.
+
+
 import collections
 import math
 import nltk
@@ -23,20 +33,23 @@ stopwords_list = ['a','about','above','against','am','an','and',
                   "when's",'where',"where's",'which','while','who',"who's",'whom',
                   'why',"why's",'with',"won't",'would',"wouldn't",'you',"you'd",
                   "you'll","you're","you've",'your','yours','yourself',
-                  'yourselves',"n't","'s",'.',',','!','?','(',')','[',']','{','}',"/",
+                  'yourselves',"n't","'s","'t",'.',',','!','?','(',')','[',']','{','}',"/",
                   '|','@','#','$','%','^','&','*','+','-','=','~']
+
 
 def calculate_tfidf(data):
     '''
     Calculates importance of a term given a review, among other reviews
 
-
     Parameter:
-    data: list of reviews for a single asin [{reviewerID: str, ...},{}]
+    data: list of review data for a single asin from load_data
+    [{reviewerID:str,...},{...}]
 
     Return:
-    tfidf: {reviewerID:{term:tfidf value}, ...} dict of dicts, showing tfidf for each term for each review
+    tfidfs: dict of dicts storing tfidf for each term for each review
+    {reviewerID:{term:tfidf value,...},...}
     '''
+    
     total_reviews = len(data)
     tfs,idfs, tfidfs = {},{},{}
     term_documents = collections.defaultdict(int)
@@ -56,28 +69,31 @@ def calculate_tfidf(data):
         ps += s[-1]
 
         tokens = word_tokenize(ps)
-        tokens = [t for t in tokens if not t in stopwords_list]
+        tokens = [t for t in tokens if not t in stopwords_list] # remove stopwords
         total_tokens = len(tokens)
         term_dict = collections.defaultdict(int)
         token_set = set()
         for token in tokens:
             term_dict[token] += 1
-            token_set.add(token)
+            token_set.add(token) # bag of words
             
         term_dict = dict(term_dict)
         for token, num_tokens in term_dict.items():
-            tfs[reviewerID][token] = num_tokens/total_tokens
+            tfs[reviewerID][token] = num_tokens/total_tokens # calculate tf
 
         for token in token_set:
             term_documents[token] += 1
             
     term_documents = dict(term_documents)
     for token, num_reviews in term_documents.items():
-        idfs[token] = math.log(total_reviews/num_reviews)
+        idfs[token] = math.log(total_reviews/num_reviews) # calculate idf
 
     for reviewerID, token_dict in tfs.items():
         tfidfs[reviewerID] = {}
         for token, tf in token_dict.items():
-            tfidfs[reviewerID][token] = tf * idfs[token]
+            tfidfs[reviewerID][token] = tf * idfs[token] # calculate tf-idf
             
     return tfidfs
+
+
+
