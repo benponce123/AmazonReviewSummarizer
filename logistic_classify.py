@@ -44,7 +44,7 @@ def logistic_classifier(filename, product, train_test_fraction):
 	filename: json file, product: asin, train_test_fraction: fraction to divide train/test data
 
 	Return:
-	weight_dict -> {word: weight} for specific product
+	weight_dict -> {word: weight} for all words in reviews of a specific product
 
 	'''
 	data = [json.loads(review) for review in open(os.path.join(sys.path[0], filename), 'r')]
