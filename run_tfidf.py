@@ -1,5 +1,5 @@
 ### Amazon Review Summarizer
-### Print TF-IDF
+### Run TF-IDF
 
 # The purpose of this file is to visualize the calculated tf-idfs from tfidf.py
 # so we can analyze it for the next steps of the project.

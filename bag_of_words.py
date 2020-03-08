@@ -3,7 +3,7 @@
 
 # This file contains product_BOW to create a bag of words for each product
 # This function was not specifically used in the tfidf.py and
-# logistic_classifier.py files, but it was used for analyzing the data.
+# logistic_classify.py files, but it was used for analyzing the data.
 
 
 import json
