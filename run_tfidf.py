@@ -11,10 +11,11 @@ import nltk
 from tfidf import calculate_tfidf
 from read_data import load_data
 
+
 if __name__ == '__main__':
         product_dict = load_data()
-        product_list = sorted(product_dict.keys(), reverse = True) # sort descending order by num reviews
-        for productID in product_list:
+        #product_list = sorted(product_dict.keys(), reverse = True) # sort descending order by num reviews
+        for productID in product_dict:
                 print('productID: ' + productID + '\n')
                 tfidfs = calculate_tfidf(product_dict[productID])
                 for reviewerID, tfidf in tfidfs.items():

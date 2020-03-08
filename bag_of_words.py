@@ -12,6 +12,7 @@ import os
 import nltk
 from read_data import read_json
 
+
 def product_BOW(filename):
 	'''
 	Creates a bag of words
