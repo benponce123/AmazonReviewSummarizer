@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     # Change values below to test for a different file and/or product
     filename = 'reviews_Musical_Instruments_5.json'
-    asin = 'B003QTM9O2'
+    asin = '1384719342'
     
     # Uncomment below if testing for a new json file
     #data = read_json(filename)
@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
 
     
-    
+    '''
     # TESTS
     # Check to see top scores
     print('\n\n***FOR TESTING PURPOSES***')
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     print('\n\nBoth Methods')
     print('------------------------------')
     for k,v in both_scores:
-        print(v[2], k)
+        print(v[2], k)'''
 
 
     

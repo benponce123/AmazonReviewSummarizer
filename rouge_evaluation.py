@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ### Amazon Review Summarizer
 ### Rouge Evaluation
 
@@ -22,15 +23,18 @@ from rouge import *
 
 
 # Summary per product
-computer_generated = "this, is great. PERFECT"
-human_generated =  "this is great. Perfect!"
+computer_generated = "" # insert something here
+human_generated = "" # insert something here
 
 # Lower case parameters
 computer_generated = computer_generated.lower()
 human_generated = human_generated.lower()
 
+# Tokenize human-generated and then join, so both summaries have same structure
+human_generated = ' '.join(word_tokenize(human_generated))
+
 # Remove punctuations for more accurate results
-punctuations = ".,'?!/()"
+punctuations = ".,?!/()"
 computer = ''
 human = ''
 for char in computer_generated:
@@ -40,17 +44,19 @@ for char in human_generated:
     if char not in punctuations:
         human += char
 
-#computer = ' '.join(word_tokenize(computer))
-#human = ' '.join(word_tokenize(human))
-
 # For testing
-print(computer)
-print(human)
+print()
+#print(computer)
+#print()
+#print(human)
+#print()
 
 # Calculate ROUGE scores
 rouge = Rouge()
 scores = rouge.get_scores(computer, human)
-print(scores)
+for s in scores:
+    for k,v in s.items():
+        print(k,v)
 
 
 

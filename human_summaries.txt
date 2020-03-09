@@ -1,5 +1,7 @@
 Human-Generated Summaries
 
+This file contains the json files and asin which will be used to create computer-generated summaries, and computer and human-generated summaries that will be used during the evaluation process to calculate the accuracy and recall.
+
 --------------------
 
 James Summaries
@@ -8,42 +10,115 @@ json: reviews_Musical_Instruments_5.json
 
 asin: B0002BACB4
 review:This is a great mic for vocals. It is more pricey than the SM58, but it is much better in quality. It is sturdy and can withstand a lot of use. The sound quality is extremely clear and picks up sound well without muffled sounds. The Beta58A is worth the price.
+t:
+l:
+b:
 
 asin: B0007Y3XGW
 review: These are well built and nice-looking tuners. They install easily without any issues. They are a perfect fit on my guitar. These replace my old tuners. They work great.
+t:
+l:
+b:
 
 asin: B0015RIN6U
 review: This tuner is the best tuner. It's everything you could want in a tuner. It is true bypass and silent. Look no further for a tuner pedal. It's display is nice and bright in the darkness. Highly recommended.
+t:
+l:
+b:
 
 asin: B0050CEEIW
 review: The cable is a good price. The cable stopped working after using it for a long time. It is used for dynamic microphones. The USB doesn't supply enough power for phantom power. 
+t:
+l:
+b:
 
 asin: B0014IEBM0
 review: These speaker look and sound nice for computer moniters. They sound ok, but are not reliable. These have problems with extended use. The speakers have good clarity and volume. There are better quality speakers out there. 
+t:
+l:
+b:
 
 --------------------
 
 Angelica Summaries
 
-file = 'reviews_Baby_5.json'
-asin = 'B000034DCJ'
-review = 'The most comfortable and versatile carrier. Challenging to use. Slings are not very easy on larger women. Son loves this. It pulled hard on my shoulder.'
+json: 'reviews_Baby_5.json'
 
-asin = 'B00005BYUX'
-review = 'Cover easily snaps it close washable, BPA-free, slim and portable. Nuby makes great products. Fairly long spoons and worked great. Eight utensils will fit with the lid on the case. Perfect way to store utensils'
+asin: 'B000034DCJ'
+review: 'The most comfortable and versatile carrier. Challenging to use. Slings are not very easy on larger women. Son loves this. It pulled hard on my shoulder.'
+t: I was skeptical first about 'babywearing. Slings keep the baby natural positions. Usual type carriers which have baby putting all their weight pelvic bone good for their developing bones. Daughter gets older i plan hip. Strange or uncomfortable first but i daughter and she 's 18 months. Daughter will not go in this. Traditional front pack. Front pack easier. Empty diaper bag. Older i front pack. Back like the front packs can. Next carrier. Babies r us many plastic bags. 
+l: Position best. Son loves this. I really wanted to love this sling. Traditional front pack. Tiny person. Front pack easier. Friend has this and loves it. Sling i bit large. Joke with this sling that was given to me and fell in love. Baby grows. Strange or uncomfortable first but i daughter and she 's 18 months. Easier to use. Slings are just not very easy larger women. 
+b: I was skeptical first about 'babywearing. Strange or uncomfortable first but i daughter and she 's 18 months. Daughter gets older i plan hip. Slings keep the baby natural positions. Usual type carriers which have baby putting all their weight pelvic bone good for their developing bones. Daughter will not go in this. Position best. Son loves this. Traditional front pack. Front pack easier. I really wanted to love this sling. Tiny person. Sling i bit large. 
 
-file = 'reviews_Digital_Music_5.json'
-asin = 'B003Y3ZTH4'
-review = "Katy Perry's second single 'Teenage Dream' is a blast. Amazing, pop song by Katy Perry and proves that she is the Queen of pop. Vocals are dreadful, the beat is obnoxious, really horrible song and way overplayed. Lack of really striking music. It will always be one of my favorites."
 
-file = 'reviews_Grocery_and_Gourmet_Food_5.json'
-asin = 'B00CCVECOA'
-review = 'Fantastic tasting and very nice light snack. Yummy crispy coconut chips. Crunchy, rich, and sweet. Healthy snack food and great in baking, smoothies, ice cream. Strange fat content.'
+asin: 'B00005BYUX'
+review: 'Cover easily snaps it close washable, BPA-free, slim and portable. Nuby makes great products. Fairly long spoons and worked great. Eight utensils will fit with the lid on the case. Perfect way to store utensils'
+t: Long spoons worked great. Slim and portable. Utensils will fit with the lid case. Nice colors. I will be checking soon to see if one of our sharper forks will fit in the case. Perfect size. 
+l: Perfect size. Nice colors. Long spoons worked great. Utensils readily found in stores. Perfect way utensils for on the go. Able to choose colors. 
+b: Long spoons worked great. Nice colors. Perfect size. Utensils will fit with the lid case. Slim and portable. I will be checking soon to see if one of our sharper forks will fit in the case. 
 
-file = 'reviews_Grocery_and_Gourmet_Food_5.json'
-asin = 'B0046WTQC6'
-review = 'Awesome taste but too expensive. Candy is delicious tart and sweet. Allergic to its non-sugar sweetening ingredients. Individually wrapped. Not the same as the sugar sweetened one.'
+json: 'reviews_Digital_Music_5.json'
+
+asin: 'B003Y3ZTH4'
+review: "Katy Perry's second single 'Teenage Dream' is a blast. Amazing, pop song by Katy Perry and proves that she is the Queen of pop. Vocals are dreadful, the beat is obnoxious, really horrible song and way overplayed. Lack of really striking music. It will always be one of my favorites."
+t: Horrible song way overplayed. Teenage dream. Song is one of the few songs on the album pop-rock appeal. Video showcases a bunch young adults fun on the beach water. Best song album. I can picture it being a great song to blast on the radio windows down. Stars or an 8. Pop song katy perry queen of pop rightful successor madonna. 
+l: Katy perry worst. Horrible song way overplayed. Song is awful. Racy but nothing. Best song album. Video showcases a bunch young adults fun on the beach water. Things that young people enjoy. More grown voice. 
+b: Horrible song way overplayed. Teenage dream. Katy perry worst. Best song album. Video showcases a bunch young adults fun on the beach water. Song is one of the few songs on the album pop-rock appeal. Song is awful. Racy but nothing.
+
+json: 'reviews_Grocery_and_Gourmet_Food_5.json'
+
+asin: 'B00CCVECOA'
+review: 'Fantastic tasting and very nice light snack. Yummy crispy coconut chips. Crunchy, rich, and sweet. Healthy snack food and great in baking, smoothies, ice cream. Strange fat content.'
+t: Everyone who loves snacking healthy good price. Light snack. Strange fat content. 
+l: Fantastic tasting nice. Tastyyyy yum. Strange fat content. 
+b: Everyone who loves snacking healthy good price. Light snack. Fantastic tasting nice. 
+
+asin: 'B0046WTQC6'
+review: 'Awesome taste but too expensive. Candy is delicious tart and sweet. Allergic to its non-sugar sweetening ingredients. Individually wrapped. Not the same as the sugar sweetened one.'
+t: Cherry candy favorite and this lifesavers wild cherry has a nice tart kick. I 've got nothing love for these mighty little candies. Flavor is just as terrific. Candy is delicious. 
+l: Flavor is just as terrific. Candy is delicious. Cherry candy favorite and this lifesavers wild cherry has a nice tart kick. Fact they are individually wrapped.
+b: Cherry candy favorite and this lifesavers wild cherry has a nice tart kick. Flavor is just as terrific. Candy is delicious. I 've got nothing love for these mighty little candies. 
+
 
 --------------------
 
 Ben Summaries
+
+json: automotive_5.json
+
+asin: B0000ATZDE
+review: Seems alright. Very nice stainless steel design. I like it so far, very well made. I oiled it up good before placing it on my vehicle. It’s difficult to get the locking end on and off. I don’t think there’s a better product out there though, which makes it worth the price.
+t: Nice stainless steel design. Rubber cap key hole better design i 'd buy it again. I like this lock. Quality product. I live in the four corners area of nm. 
+l: Narrow space. Better product. Worth the price. Nice stainless steel design. Quality product. 
+b: Nice stainless steel design. Rubber cap key hole better design i 'd buy it again. Narrow space. Better product. Quality product. 
+
+asin: B0002SRCK6
+review: OMG I was under the truck for over a hour wrestling with it! What a piece of junk! Pushing as hard as I could, though, I was not able to get the fuel line off with this tool. It works but like others said, theres nothing easy about getting the old one off.You won’t have any problems disconnecting that AC line. Solid connectors.
+t: Easy to use and comes with many sizes. Similar set couple bucks less. Solid connectors. First set i had purchased long long ago. Sissor tool. Compnay has been around a long time. Time and the fuel line will disconnect just fine. Others said. 
+l: Plastic junk. Others said. Tool broke. Similar set couple bucks less. Solid connectors. Solid and get the job. Piece of junk. Ford truck. 
+b: Easy to use and comes with many sizes. Similar set couple bucks less. Others said. Plastic junk. Tool broke. Solid connectors. Solid and get the job. Piece of junk. 
+
+asin: B0002SRCKG
+review: Excellent seal puller. Long handle to give lots of leverage. This puller works well for what is is designed to do, pull seals. An incredibly easy to use seal puller that is Made In The USA.  Excellent quality and built to last for many years of normal use. It works and is nicely constructed.
+t: Easy to use seal puller that is made in the usa. Puller works well for what is is designed to do. Title says it all. Good tool shop. Lisle tools good quality mechanics tools that should last. 
+l: Seal puller. Pull seals. Cource replace the seal new one. Works as will as other seal pullers. Excellent quality last for many years of normal use. 
+b: Easy to use seal puller that is made in the usa. Puller works well for what is is designed to do. Seal puller. Pull seals. Excellent quality last for many years of normal use. 
+
+json: Amazon_Instant_Video_5.json
+
+asin: B000H0X79O
+review: It's kind of a crap shoot as to whether you'll be entertained or not, but hey, if you're just sitting around trying to kill 20-30 minutes while you're waiting for something else to do, it's worth a shot. It beats watching a blank screen. Not bad. I'll check out the next season soon. I usually enjoy standup comedy and is this is a good show for me.
+t: 20-30 minutes something else to do. Blank screen. Best of the best comedy stand-up. 
+l: Great way time. Best of the best comedy stand-up. 20-30 minutes something else to do. 
+b: 20-30 minutes something else to do. Best of the best comedy stand-up. Great way time.
+
+asin: B000H29TXU
+review: Watched it for Kevin Hart and only Kevin Hart!  He makes me laugh. The best comedy comes from pain and Kevin does his comedy with a huge heart. Great for dinner TV entertainment because of length of each episode. comedy is a matter of taste. this guy was a little funny but there are others that are far funnier than this guy.
+t: Kevin hart hart. Dat phan. 
+l: I love the variety comics. Best comedy pain and kevin comedy with a huge heart. 
+b: Best comedy pain and kevin comedy with a huge heart. I love the variety comics. 
+
+
+
+
+
