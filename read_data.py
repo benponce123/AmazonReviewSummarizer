@@ -12,6 +12,7 @@ import os
 import pickle
 import collections
 
+
 def read_json(filename):
     '''
     Opens and reads a json file turning it into a list

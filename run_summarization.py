@@ -15,12 +15,15 @@
 
 from read_data import *
 from summary_formation import *
+import warnings
+warnings.simplefilter('ignore')
+
 
 if __name__ == '__main__':
 
     # Change values below to test for a different file and/or product
     filename = 'reviews_Musical_Instruments_5.json'
-    asin = 'B0002CZVB4'
+    asin = 'B003QTM9O2'
     
     # Uncomment below if testing for a new json file
     #data = read_json(filename)
@@ -46,15 +49,30 @@ if __name__ == '__main__':
 
 
     
-
+    
     # TESTS
     # Check to see top scores
     print('\n\n***FOR TESTING PURPOSES***')
     scores = score_phrases(filename,asin)
+
     tfidf_scores = sorted(scores.items(), key=lambda x:-x[1][0])
     print('# of sentences: ' + str(len(tfidf_scores)))
+    print('\nTF-IDF')
+    print('------------------------------')
     for k,v in tfidf_scores:
         print(v[0], k)
+
+    lc_scores = sorted(scores.items(), key=lambda x:-x[1][1])
+    print('\n\nLogClass')
+    print('------------------------------')
+    for k,v in lc_scores:
+        print(v[1], k)
+
+    both_scores = sorted(scores.items(), key=lambda x:-x[1][2])
+    print('\n\nBoth Methods')
+    print('------------------------------')
+    for k,v in both_scores:
+        print(v[2], k)
 
 
     
