@@ -44,7 +44,6 @@ def score_phrases(filename, asin):
 
         for phrase in product_keyphrases[review]:
             # Three scores for TF-IDF, LC, and for both
-            # All three will be added with title similarity score
             phrase_score = [0,0,0]
             nonstopword_phrase = [word for word in phrase if word not in stopwords_list]         
 
@@ -82,7 +81,7 @@ def score_phrases(filename, asin):
                         if word in title:
                             ntw += 1
                     phrase_score[0] += ntw/title_length
-                    phrase_score[1] += ntw/title_length
+                    #phrase_score[1] += ntw/title_length
                     phrase_score[2] += ntw/title_length
                     
                 #print(ntw/title_length)
