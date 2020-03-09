@@ -13,4 +13,4 @@ asin: B0050CEEIW
 review: The cable is a good price. The cable stopped working after using it for a long time. It is used for dynamic microphones. The USB doesn't supply enough power for phantom power. 
 
 asin: B0014IEBM0
-review: These speaker look and sound nice for computer moniters. They sound ok, but are not reliable. These have problems with extended use. The speakers have good clarity and volume. There are better quality speakers out there. 
+review: These speaker look and sound nice for computer moniters. They sound ok, but are not reliable. These have problems with extended use. The speakers have good clarity and volume. There are better quality speakers out there.
