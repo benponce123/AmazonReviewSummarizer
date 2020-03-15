@@ -13,8 +13,8 @@ import sklearn
 from sklearn import linear_model, metrics
 from sklearn.feature_extraction.text import *
 from sklearn.model_selection import train_test_split
-from read_data import *
-from stopwords import *
+from .read_data import *  # remove . to run run_classify
+from .stopwords import *  # remove . to run run_classify
 
 
 def logistic_classifier(filename, product, train_test_fraction):

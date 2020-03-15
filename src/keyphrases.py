@@ -6,7 +6,7 @@
 # used for scoring.
 
 
-from read_data import read_json
+from .read_data import read_json
 import nltk
 from nltk import word_tokenize, pos_tag
 
@@ -45,10 +45,6 @@ def find_keyphrases(filename, asin):
             tokens = word_tokenize(ps)  # grab the words
             tokens_and_tags = nltk.pos_tag(tokens, tagset='universal')
 
-            #print()
-            #print()
-            #print(tokens_and_tags)
-
             # Find noun-adjective phrases
             i = 0
             found_adjnoun = False
@@ -77,9 +73,6 @@ def find_keyphrases(filename, asin):
                             review_keyphrases.append(tokens_and_tags[i])
                         found_adjnoun = True
                     i += 1
-
-            #print()
-            #print(review_keyphrases)
             
             product_tokpos.append(review_keyphrases)
 

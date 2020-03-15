@@ -9,11 +9,11 @@
 from math import ceil
 import nltk
 from nltk import word_tokenize
-from read_data import *
-from tfidf import calculate_tfidf
-from logistic_classify import logistic_classifier
-from keyphrases import find_keyphrases
-from stopwords import *
+from .read_data import *
+from .tfidf import calculate_tfidf
+from .logistic_classify import logistic_classifier
+from .keyphrases import find_keyphrases
+from .stopwords import *
 
 
 def score_phrases(filename, asin):
@@ -49,7 +49,6 @@ def score_phrases(filename, asin):
 
             if len(nonstopword_phrase) > 1:
                 for word in phrase:
-                    #print(word)
                     if word not in stopwords_list:
                         # Add TF-IDF weights
                         phrase_score[0] += tfidfs[reviewerID][word]
@@ -57,22 +56,16 @@ def score_phrases(filename, asin):
                         if word in lc:
                             # No negative weights to capture both top pos & neg words
                             phrase_score[1] += abs(lc[word])
-                    #print(phrase_score)
                     
                 # Add both TF-IDF and LC, then normalize
-                phrase_score[2] = (phrase_score[0] + phrase_score[1])/2  #phrase_score[1]*0.2
-
-                #print(phrase_score)
+                phrase_score[2] = (phrase_score[0] + phrase_score[1])/2 
                 
                 # Divide by length of phrase since longer phrases will have higher scores
-                phrase_score[0] = phrase_score[0]/len(phrase) #len(nonstopword_phrase) ?
+                phrase_score[0] = phrase_score[0]/len(phrase)
                 phrase_score[1] = phrase_score[1]/len(phrase)
                 phrase_score[2] = phrase_score[2]/len(phrase)
-
-                #print(len(phrase))
-                #print(phrase_score)
                 
-                # Title similarity scoring
+                # Title resemblance scoring
                 # Title words in the phrase receive higher score
                 title_length = len(title)
                 ntw = 0    # number of title words in the phrase
@@ -83,10 +76,6 @@ def score_phrases(filename, asin):
                     phrase_score[0] += ntw/title_length
                     #phrase_score[1] += ntw/title_length
                     phrase_score[2] += ntw/title_length
-                    
-                #print(ntw/title_length)
-                #print(phrase_score)
-                #print()
 
                 # Add phrase and score in dictionary
                 scores[' '.join(phrase)] = phrase_score

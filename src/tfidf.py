@@ -10,7 +10,7 @@ import collections
 import math
 import nltk
 from nltk import word_tokenize
-from stopwords import *
+from .stopwords import *  # remove . to run run_tfidf
 
 
 def calculate_tfidf(data):

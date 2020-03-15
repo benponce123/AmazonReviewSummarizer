@@ -6,6 +6,7 @@
 # the project.
 
 
+# must change the import in logistic_classify to run this
 from logistic_classify import *
 import warnings
 warnings.simplefilter('ignore')

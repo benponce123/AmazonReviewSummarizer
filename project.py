@@ -13,8 +13,8 @@
 # 'reviewText'
 
 
-from read_data import *
-from summary_formation import *
+from src.read_data import *
+from src.summary_formation import *
 import warnings
 warnings.simplefilter('ignore')
 
@@ -22,8 +22,8 @@ warnings.simplefilter('ignore')
 if __name__ == '__main__':
 
     # Change values below to test for a different file and/or product
-    filename = 'reviews_Musical_Instruments_5.json'
-    asin = '1384719342'
+    filename = 'src/reviews_Musical_Instruments_5.json'
+    asin = 'B00004Y2UT'
     
     # Uncomment below if testing for a new json file
     #data = read_json(filename)
@@ -46,6 +46,8 @@ if __name__ == '__main__':
     print('\n\nTF-IDF Summary\n' + summary1)
     print('\n\nLogistic Classifier Summary\n' + summary2)
     print('\n\nCombined Methods Summary\n' + summary3)
+    print()
+    print()
 
 
     

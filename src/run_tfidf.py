@@ -8,7 +8,8 @@
 import os
 import json
 import nltk
-from tfidf import calculate_tfidf
+# must change the import in tfidf to run this
+from tfidf import calculate_tfidf  
 from read_data import load_data
 
 

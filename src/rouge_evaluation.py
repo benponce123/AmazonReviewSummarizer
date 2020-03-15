@@ -44,13 +44,6 @@ for char in human_generated:
     if char not in punctuations:
         human += char
 
-# For testing
-print()
-#print(computer)
-#print()
-#print(human)
-#print()
-
 # Calculate ROUGE scores
 rouge = Rouge()
 scores = rouge.get_scores(computer, human)

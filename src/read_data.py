@@ -43,7 +43,7 @@ def separate_data(data):
     for review in data:
         product_dict[review['asin']].append(review)
     product_dict = dict(product_dict)
-    pickle.dump(product_dict, open( "product_reviews.p", "wb" ))
+    pickle.dump(product_dict, open( "src/product_reviews.p", "wb" ))
             
 def load_data():
     '''
@@ -54,6 +54,5 @@ def load_data():
     {asin:[{reviewerID:str,asin:str,...},{...}],...}
     '''
     
-    return pickle.load(open( "product_reviews.p", "rb" ))
-
+    return pickle.load(open( "src/product_reviews.p", "rb" ))
 
