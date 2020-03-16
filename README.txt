@@ -1,8 +1,10 @@
 README.txt
 
+
 Folders:
 rouge_evaluation
 Contains the methods necessary to calculate ROUGE-N and ROUGE-L for a computer-generated and human made summaries
+
 
 Modules:
 bag_of_words.py
